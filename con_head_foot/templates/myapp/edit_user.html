@@ -1,0 +1,177 @@
+{% extends 'myapp/index.html' %}
+{% load static %}
+
+{% block title %}ByteCode-Edit_Form{% endblock %}
+
+{% block content %}
+<form method="post" action="{% url 'edit_user' user.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="container">
+        <div class="row mt-2">
+            <section class="h-100 bg-dark">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col">
+                            <div class="card card-registration my-4">
+                                <div class="row g-0">
+                                    <div class="col-xl-6 d-none d-xl-block">
+                                        <img src="{% static 'images/img4.webp' %}" alt="Sample photo"
+                                             class="img-fluid"
+                                             style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;"/>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="card-body p-md-5 text-black">
+                                            <h3 class="mb-5 text-uppercase">Student registration form</h3>
+
+                                            <div class="row">
+                                                <div class="col-md-6 mb-4">
+                                                    <div class="form-outline">
+                                                        <input type="text" id="firstname" name="firstname"
+                                                               value="{{ form.firstname.value }}"
+                                                               class="form-control form-control-lg" required/>
+                                                        <label class="form-label" for="firstname">First name</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-4">
+                                                    <div class="form-outline">
+                                                        <input type="text" id="lname" name="lastname"
+                                                               value="{{ form.lastname.value }}"
+                                                               class="form-control form-control-lg"/>
+                                                        <label class="form-label" for="lname">Last Name</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <input type="text" id="address" name="address"
+                                                       value="{{ form.address.value }}"
+                                                       class="form-control form-control-lg"/>
+                                                <label class="form-label" for="address">Address</label>
+                                            </div>
+
+                                            <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+                                                <h6 class="mb-0 me-4">Gender: </h6>
+
+                                                <div class="form-check form-check-inline mb-0 me-4">
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                           id="female" value="Female"
+                                                           {% if form.gender.value == 'Female' %}checked{% endif %} />
+                                                    <label class="form-check-label" for="female">Female</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline mb-0 me-4">
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                           id="male" value="Male"
+                                                           {% if form.gender.value == 'Male' %}checked{% endif %} />
+                                                    <label class="form-check-label" for="male">Male</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline mb-0">
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                           id="other" value="Other"
+                                                           {% if form.gender.value == 'Other' %}checked{% endif %} />
+                                                    <label class="form-check-label" for="other">Other</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <input type="text" id="mobile" name="mobile"
+                                                       value="{{ form.mobile.value }}"
+                                                       onkeypress="return isNumberKey(event)" maxlength="10"
+                                                       class="form-control form-control-lg"/>
+                                                <label class="form-label" for="mobile">Number</label>
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <input type="password" id="password" name="password"
+                                                       value="{{ form.password.value }}"
+                                                       class="form-control form-control-lg"/>
+                                                <label class="form-label" for="password">Password</label>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6 mb-4">
+                                                    <select class="form-control" id="country" name="country">
+                                                        <option value="" disabled>Select Country</option>
+                                                        <option value="India" {% if form.country.value == "India" %}selected{% endif %}>India</option>
+                                                        <option value="USA" {% if form.country.value == "USA" %}selected{% endif %}>USA</option>
+                                                        <option value="Australia" {% if form.country.value == "Australia" %}selected{% endif %}>Australia</option>
+                                                        <option value="UAE" {% if form.country.value == "UAE" %}selected{% endif %}>UAE</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-6 mb-4">
+                                                    <select class="form-control" id="state" name="state">
+                                                        <option value="" disabled>Select State</option>
+                                                        <option value="Maharashtra" {% if form.state.value == "Maharashtra" %}selected{% endif %}>Maharashtra</option>
+                                                        <option value="Goa" {% if form.state.value == "Goa" %}selected{% endif %}>Goa</option>
+                                                        <option value="Utter Pradesh" {% if form.state.value == "Utter Pradesh" %}selected{% endif %}>Utter Pradesh</option>
+                                                        <option value="Madhya Pradesh" {% if form.state.value == "Madhya Pradesh" %}selected{% endif %}>Madhya Pradesh</option>
+                                                        <option value="Gujarat" {% if form.state.value == "Gujarat" %}selected{% endif %}>Gujarat</option>
+                                                        <option value="Karnataka" {% if form.state.value == "Karnataka" %}selected{% endif %}>Karnataka</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <input type="text" id="city" name="city"
+                                                       value="{{ form.city.value }}"
+                                                       class="form-control form-control-lg"/>
+                                                <label class="form-label" for="city">City</label>
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <input type="file" class="form-control" id="profile_image"
+                                                       name="profile_image" accept="image/*"/>
+                                            </div>
+
+                                            <div class="row mt-3">
+                                                <div class="col-12">
+                                                    <div class="mb-3 text-center">
+                                                        <img id="profilePreview"
+                                                             src="{% if form.profile_image.value %}{{ form.profile_image.value.url }}{% else %}{% static 'images/img-1.jpg' %}{% endif %}"
+                                                             alt="Profile Image"
+                                                             class="img-thumbnail"
+                                                             style="width: 150px; height: 150px;"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="d-flex justify-content-end pt-3">
+                                                <button type="button" class="btn btn-light btn-lg" id="resetbtn"
+                                                        onclick="resetall()">Reset all
+                                                </button>
+                                                <button type="submit" class="btn btn-warning btn-lg ms-2"
+                                                        id="submitbtn">Update User
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+
+<style>
+    .card-registration .select-input.form-control[readonly]:not([disabled]) {
+        font-size: 1rem;
+        line-height: 2.15;
+        padding-left: .75em;
+        padding-right: .75em;
+    }
+
+    .card-registration .select-arrow {
+        top: 13px;
+    }
+</style>
+
+<script src="{% static '/js/main.js' %}"></script>
+
+{% endblock %}
