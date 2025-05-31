@@ -1,3 +1,16 @@
+html, body {
+    overflow-x: initial !important;
+    height: auto !important;
+}
+
+.u-body {
+    overflow-y: visible !important;
+    min-height: 100vh;
+}
+
+main {
+    overflow: visible;
+}
 .u-section-1 .u-sheet-1 {
   min-height: 748px;
 }
