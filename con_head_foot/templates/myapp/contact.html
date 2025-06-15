@@ -1,0 +1,194 @@
+{% extends 'myapp/index.html' %}
+{% block title %}ByteCode-Contact{% endblock %}
+{% load static %}
+{% block content %}
+
+<form method="post" action="{% url 'Contactpage' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <body onload="loadcursor()">
+    <div class="container">
+        <div class="row mt-2">
+            <div class="contact2"
+                 style="background-image:url(https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/contact/map.jpg)"
+                 id="contact">
+                <div class="container">
+                    <div class="row contact-container">
+                        <div class="col-lg-12">
+                            <div class="card card-shadow border-0 mb-4">
+                                <div class="row">
+                                    <!-- 📩 Contact Form Left Side -->
+                                    <div class="col-lg-8">
+                                        <div class="contact-box p-4">
+                                            <h4 class="title">Contact Us</h4>
+
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group mt-3">
+                                                        <input class="form-control" type="text" id="name"
+                                                               name="name" placeholder="name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group mt-3">
+                                                        <input class="form-control" type="email" id="email"
+                                                               name="email" placeholder="email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group mt-3">
+                                                        <input class="form-control" maxlength="10"
+                                                               type="text" id="phone" name="phone"
+                                                               placeholder="Phone">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group mt-3">
+                                                        <input class="form-control" type="text" id="location"
+                                                               name="location" placeholder="location">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group mt-3">
+                                                        <input class="form-control" type="text" id="message"
+                                                               name="message" placeholder="message">
+                                                    </div>
+                                                </div>
+
+                                                <!-- 🔘 Form Buttons -->
+                                                <div class="col-lg-12">
+                                                    <button type="button" id="reset" onclick="resetcontact()"
+                                                            class="btn btn-danger-gradiant mt-3 mb-3 text-white border-0 py-2 px-3">
+                                                        <span> Reset all <i class="ti-arrow-right"></i></span>
+                                                    </button>
+
+                                                    <button type="submit" id="submit"
+                                                            class="btn btn-danger-gradiant mt-3 mb-3 text-white border-0 py-2 px-3">
+                                                        <span> SUBMIT NOW <i class="ti-arrow-right"></i></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 🗺️ Address and Social Right Side -->
+                                    <div class="col-lg-4 bg-image"
+                                         style="background-image:url(https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/contact/1.jpg)">
+                                        <div class="detail-box p-4">
+                                            <h5 class="text-white font-weight-light mb-3">ADDRESS</h5>
+                                            <p class="text-white op-7">601 Sherwood Ave.<br>San Bernandino</p>
+                                            <h5 class="text-white font-weight-light mb-3 mt-4">CALL US</h5>
+                                            <p class="text-white op-7">251 546 9442<br>630 446 8851</p>
+                                            <div class="round-social light">
+                                                <a href="#" class="ml-0 text-decoration-none text-white border border-white rounded-circle"><i class="icon-social-facebook"></i></a>
+                                                <a href="#" class="text-decoration-none text-white border border-white rounded-circle"><i class="icon-social-twitter"></i></a>
+                                                <a href="#" class="text-decoration-none text-white border border-white rounded-circle"><i class="icon-social-youtube"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <!-- row -->
+                            </div> <!-- card -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📋 Contact Records Table -->
+    <div class="row mt-4">
+        <div class="col-md-12 table-responsive">
+            <table class="table table-bordered table-striped" id="example">
+                <thead>
+                <tr class="text-center">
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Location</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                <tr class="text-center align-middle">
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone }}</td>
+                    <td>{{ user.location }}</td>
+                    <td>{{ user.message }}</td>
+                    <td>
+                        <a href="{% url 'contact_edit' user.id %}" class="btn btn-success">Edit</a>
+                        <a href="{% url 'delete_contact' user.id %}" onclick="return confirm('are you want to delete data?')" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+
+<!-- 🎨 Custom Styles -->
+<style>
+    @import url(//fonts.googleapis.com/css?family=Montserrat:300,400,500);
+
+    .contact2 {
+        font-family: "Montserrat", sans-serif;
+        color: #8d97ad;
+        font-weight: 300;
+        padding: 60px 0;
+        margin-bottom: 170px;
+        background-position: center top;
+    }
+
+    .contact2 h1, .contact2 h2, .contact2 h3, .contact2 h4, .contact2 h5, .contact2 h6 {
+        color: #3e4555;
+    }
+
+    .contact2 .font-weight-medium {
+        font-weight: 500;
+    }
+
+    .contact2 .bg-image {
+        background-size: cover;
+        display: flex;
+    }
+
+    .contact2 .card.card-shadow {
+        box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+    }
+
+    .contact2 .detail-box .round-social {
+        margin-top: 100px;
+    }
+
+    .contact2 .round-social a {
+        background: transparent;
+        margin: 0 7px;
+        padding: 11px 12px;
+    }
+
+    .contact2 .btn-danger-gradiant {
+        background: linear-gradient(to right, #ff4d7e 0%, #ff6a5b 100%);
+    }
+
+    .contact2 .btn-danger-gradiant:hover {
+        background: linear-gradient(to right, #ff6a5b 0%, #ff4d7e 100%);
+    }
+</style>
+
+<!-- 📊 DataTable Script -->
+<script>
+    new DataTable('#example', {
+        layout: {
+            topStart: {
+                pageLength: {
+                    menu: [5, 10, 20, 25, 50, 100]
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

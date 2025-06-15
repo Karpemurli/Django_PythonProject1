@@ -1,0 +1,288 @@
+{% extends 'myapp/index.html' %}
+
+{% block title %}ByteCode-Register{% endblock %}
+{% load static %}
+{% block content %}
+
+<form method="POST" action="{% url 'submit_register' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+<body onload="loadcursorregi()">
+    <!-- All your input fields go here -->
+    <div class="container ">
+
+        <div class="row mt-2">
+
+            <section class="h-100 bg-dark">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col">
+                            <div class="card card-registration my-4">
+                                <div class="row g-0">
+                                    <div class="col-xl-6 d-none d-xl-block">
+                                        <img src="{% static 'images/img4.webp' %}"
+                                             alt="Sample photo" class="img-fluid"
+                                             style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;"/>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="card-body p-md-5 text-black">
+                                            <h3 class="mb-5 text-uppercase">Student registration form</h3>
+
+                                            <div class="row">
+                                                <div class="col-md-6 mb-4">
+                                                    <div data-mdb-input-init class="form-outline">
+                                                        <input type="text" id="firstname" name="firstname"
+                                                               class="form-control form-control-lg" required/>
+                                                        <label class="form-label" for="firstname">First name</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mb-4">
+                                                    <div data-mdb-input-init class="form-outline">
+                                                        <input type="text" id="lname" name="lastname"
+                                                               class="form-control form-control-lg"/>
+                                                        <label class="form-label" for="lname">Last Name</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="text" id="address" name="address"
+                                                       class="form-control form-control-lg"/>
+                                                <label class="form-label" for="address">Address</label>
+                                            </div>
+
+                                            <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                                                <h6 class="mb-0 me-4">Gender: </h6>
+
+                                                <div class="form-check form-check-inline mb-0 me-4">
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                           id="female"
+                                                           value="Female"/>
+                                                    <label class="form-check-label" for="female">Female</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline mb-0 me-4">
+                                                    <input class="form-check-input" type="radio" name="gender" id="male"
+                                                           value="Male"/>
+                                                    <label class="form-check-label" for="male">Male</label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline mb-0">
+                                                    <input class="form-check-input" type="radio" name="gender"
+                                                           id="other"
+                                                           value="Other"/>
+                                                    <label class="form-check-label" for="other">Other</label>
+                                                </div>
+
+                                            </div>
+
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="text" id="mobile" name="mobile"
+                                                       onkeypress="return isNumberKey(event)" maxlength="10"
+                                                       class="form-control form-control-lg"/>
+                                                <label class="form-label" for="mobile">Number</label>
+                                            </div>
+
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="password" id="password" name="password"
+                                                       class="form-control form-control-lg"
+                                                />
+                                                <label class="form-label" for="password">Password</label>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-md-6 mb-4">
+
+                                                    <select class="form-control" id="country" name="country">
+
+                                                        <option value="" disabled selected>Select Country</option>
+                                                        <option value="India">India</option>
+                                                        <option value="USA">USA</option>
+                                                        <option value="Australia">Australia</option>
+                                                        <option value="UAE">UAE</option>
+                                                    </select>
+
+                                                </div>
+
+                                                <div class="col-md-6 mb-4">
+
+
+                                                    <select class="form-control" id="state" name="state">
+                                                        <option value="" disabled selected>Select State</option>
+                                                        <option value="Maharashtra">Maharashtra</option>
+                                                        <option value="Goa">Goa</option>
+                                                        <option value="Utter Pradesh">Utter Pradesh</option>
+                                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                        <option value="Gujarat">Gujarat</option>
+                                                        <option value="Karnataka">Karnataka</option>
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="text" id="city" name="city"
+                                                       class="form-control form-control-lg"/>
+                                                <label class="form-label" for="city">City</label>
+                                            </div>
+
+
+                                            <div data-mdb-input-init class="form-outline mb-4">
+                                                <input type="file" class="form-control" id="profile_image" name="profile_image" accept="image/*">
+                                                <!--                                                <label class="input-group-text" for="inputGroupFile02">Upload</label>-->
+                                            </div>
+
+
+                                            <!--                    <div class="row">-->
+                                            <!--                      <div class="col-md-6 mb-4">-->
+                                            <!--                        <div data-mdb-input-init class="form-outline">-->
+                                            <!--                          <input type="text" id="mname" class="form-control form-control-lg"/>-->
+                                            <!--                          <label class="form-label" for="form3Example1m1">Mother's name</label>-->
+                                            <!--                        </div>-->
+                                            <!--                      </div>-->
+                                            <!--                      <div class="col-md-6 mb-4">-->
+                                            <!--                        <div data-mdb-input-init class="form-outline">-->
+                                            <!--                          <input type="text" id="fname" class="form-control form-control-lg"/>-->
+                                            <!--                          <label class="form-label" for="form3Example1n1">Father's name</label>-->
+                                            <!--                        </div>-->
+                                            <!--                      </div>-->
+                                            <!--                    </div>-->
+
+
+                                            <!--                    <div data-mdb-input-init class="form-outline mb-4">-->
+                                            <!--                      <input type="text" id="dob" class="form-control form-control-lg"/>-->
+                                            <!--                      <label class="form-label" for="form3Example9">DOB</label>-->
+                                            <!--                    </div>-->
+
+
+                                            <!--                    <div data-mdb-input-init class="form-outline mb-4">-->
+                                            <!--                      <input type="text" id="pincode" class="form-control form-control-lg"/>-->
+                                            <!--                      <label class="form-label" for="form3Example90">Pincode</label>-->
+                                            <!--                    </div>-->
+
+
+                                            <!--                                                                <div data-mdb-input-init class="form-outline mb-4">-->
+                                            <!--                                                                  <input type="email" id="email"  name="email" class="form-control form-control-lg" onblur="validateEmail(this)"/>-->
+                                            <!--                                                                  <label class="form-label" for="email">Email ID</label>-->
+                                            <!--                                                                </div>-->
+
+
+                                            <div class="d-flex justify-content-end pt-3">
+                                                <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                                        class="btn btn-light btn-lg" id="resetbtn" onclick="resetall()">Reset all
+                                                </button>
+                                                <button type="submit" class="btn btn-warning btn-lg ms-2" id="submitbtn">Submit form
+                                                </button>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </div>
+    <!--             register table-->
+    <div class="row mt-4">
+        <div class="col-md-12 col-sm-12 table-responsive">
+            <table class="table table-bordered table-striped" id="example">
+                <thead>
+                <tr class="text-center">
+                    <th>Photo</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>Gender</th>
+                    <th>Mobile</th>
+                    <!--                                                            <th>password</th>-->
+                    <th>Country</th>
+                    <th>State</th>
+                    <th>City</th>
+                    <th>Action</th>
+                    <!--                                                            <th>profile_image</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                <tr class="text-center align-middle">
+                    <td>
+                        <img src="{{ user.profile_image.url}}" class="img-thumbnail" style="width: 100px; height: 100px;">
+                        <!--   border-radius: 50%  -->
+                        <!--                        <img src="{{ user.profile_image.url }}" class="img-thumbnail" alt="Profile" style="width: 50px; height: 50px;">-->
+
+                    </td>
+                    <td> {{user.firstname}}</td>
+                    <td> {{user.lastname}}</td>
+                    <td> {{user.address}}</td>
+                    <td> {{user.gender}}</td>
+                    <td> {{user.mobile}}</td>
+                    <td> {{user.country}}</td>
+                    <td> {{user.state}}</td>
+                    <td> {{user.city}}</td>
+                    <td>
+                        <a href="{% url 'edit_user' user.id %}" class="btn btn-success btn-sm">Edit</a>
+                        <a href="{% url 'delete_user' user.id %}"
+                           onclick="return confirm('are you want to delete data?')"
+                           class="btn btn-danger btn-sm">Delete</a>
+
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <style>
+        .card-registration .select-input.form-control[readonly]:not([disabled]) {
+            font-size: 1rem;
+            line-height: 2.15;
+            padding-left: .75em;
+            padding-right: .75em;
+        }
+
+        .card-registration .select-arrow {
+            top: 13px;
+        }
+    </style>
+
+
+    <script src="{% static '/js/main.js' %}"></script>
+
+
+    <script>
+        new DataTable('#example', {
+            layout: {
+                topStart: {
+                    pageLength: {
+                        menu: [5, 10, 20, 25, 50, 100]
+                    }
+                }
+            }
+        });
+    </script>
+    {% endblock %}

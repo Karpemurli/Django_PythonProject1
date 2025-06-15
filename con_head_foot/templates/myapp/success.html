@@ -1,0 +1,14 @@
+{% extends 'myapp/index.html' %}
+
+{% block title %}Success{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="alert alert-success" role="alert">
+        <h1 class="display-4">Success!</h1>
+        <p class="lead">Your registration has been completed successfully.</p>
+        <a href="{% url 'register' %}" class="btn btn-primary mt-3">Go to Registration Form</a>
+        <a href="{% url 'contact' %}" class="btn btn-primary mt-3">Go to Contact Page</a>
+    </div>
+</div>
+{% endblock %}
